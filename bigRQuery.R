@@ -9,10 +9,10 @@ library(jsonlite)
 # library(notifier)
 
 
-BQ_AUTH_PATH <- "/home/thomas/keys/mandanten-305694dc610f.json"
-BQ_AUTH_EMAIL <- "twawra@gmail.com"
+#BQ_AUTH_PATH <- "/home/thomas_wawra/keys/mandanten-305694dc610f.json"
+#BQ_AUTH_EMAIL <- "twawra@gmail.com"
 
-bq_auth(path = BQ_AUTH_PATH, scopes = c("https://www.googleapis.com/auth/bigquery"))
+#bq_auth(path = BQ_AUTH_PATH, scopes = c("https://www.googleapis.com/auth/bigquery"))
 
 visits <- function(start.date = Sys.Date() - days(1),
                                 end.date = Sys.Date() - days(1)) {
