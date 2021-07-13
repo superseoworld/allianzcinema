@@ -1,13 +1,7 @@
 source("/home/thomas_wawra/projects/allianzcinema/bigRQuery.R")
 source("/home/thomas_wawra/projects/allianzcinema/helper.R")
-<<<<<<< HEAD
 source("/home/thomas_wawra/projects/allianzcinema/etl__allianzcinemadrivein.R")
 
-=======
-
-source("/home/thomas/projects/bi/etl__allianzcinemadrivein.R")
-
->>>>>>> 4af3f2734e8fe429f48e5df4028f5364bcd28594
 BQ_AUTH_PATH <- "/home/thomas_wawra/keys/bigdata-285708-98e44957025f.json"
 BQ_AUTH_EMAIL <- "mandanten-avodi@bigdata-285708.iam.gserviceaccount.com"
 
