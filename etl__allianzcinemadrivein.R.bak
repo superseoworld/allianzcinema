@@ -3,11 +3,7 @@ library(DBI)
 library(tidyverse)
 
 SQL__SOLD_TICKETS <<-
-"SELECT DISTINCT
-                cc.firstName,
-                cc.lastName,
-                asp.amount as ticketprice,
-                ticket.id                                                                     as ticketId,
+  "SELECT DISTINCT ticket.id                                                                     as ticketId,
                 CAST(ticket.row as CHAR(10))                                                  as ticketRow,
                 CAST(ticket.seatInRow as CHAR(10))                                            as ticketSeatInRow,
                 ae_show.startDate,
@@ -31,8 +27,7 @@ SQL__SOLD_TICKETS <<-
                 IF(ticket.currentPlace = 'assigned' OR ticket.currentPlace = 'shipped', 1, 0) as ticketsTotal,
                 IF(ticket.currentPlace = 'assigned', 1, 0)                                    as assigned,
                 IF(ticket.currentPlace = 'shipped', 1, 0)                                     as shipped,
-                IF(ticket.currentPlace = 'canceled', 1, 0)				      as canceled,
-		IF(ticket.currentPlace = 'available', 1, 0)                                   as available,
+                IF(ticket.currentPlace = 'available', 1, 0)                                   as available,
                 IF(seatmap_section_translation.title = 'VIP Parkplatz' AND
                    (ticket.currentPlace = 'assigned' OR ticket.currentPlace = 'shipped'), 1,
                    0)                                                                         as `VIP Parkplatz verkauft`,
@@ -73,11 +68,8 @@ FROM app_tickets AS ticket
          LEFT JOIN ae_tariff_translations att ON ae.no = att.tariff_id AND att.locale = 'de'
          LEFT JOIN app_order_item_adjustments aoia ON order_item.no = aoia.orderItemId
          LEFT JOIN app_access_starticket_show_contingents aassc ON aassc.internalId = ae_show.id
-         LEFT JOIN co_contacts cc on ao.contactId = cc.id
-         LEFT JOIN app_show_prices asp on ae.id = asp.tariffId
-WHERE 
-	ao.orderDate >= '2021-07-01'
 GROUP BY ticket.id;"
+
 
 MYSQL_CON <<- NULL
 

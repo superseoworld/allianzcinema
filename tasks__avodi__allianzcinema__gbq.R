@@ -2,7 +2,7 @@ source("/home/thomas_wawra/projects/allianzcinema/bigRQuery.R")
 source("/home/thomas_wawra/projects/allianzcinema/helper.R")
 source("/home/thomas_wawra/projects/allianzcinema/etl__allianzcinemadrivein.R")
 
-BQ_AUTH_PATH <- "/home/thomas_wawra/keys/bigdata-285708-e1f2ed38310f.json"
+BQ_AUTH_PATH <- "/home/thomas_wawra/keys/bigdata-285708-98e44957025f.json"
 BQ_AUTH_EMAIL <- "mandanten-avodi@bigdata-285708.iam.gserviceaccount.com"
 
 bq_auth(path = BQ_AUTH_PATH, scopes = c("https://www.googleapis.com/auth/bigquery",
@@ -21,14 +21,20 @@ df <- allianz_getSoldTickets()
 cat("transform column names\n")
 df <- df %>% helper__transform_column_names()
 
+cat("convert datatypes\n")
+df <- df %>% convert_numbers()
+
+print(df %>% head)
+
 cat(sprintf("check if temporary table exists: [%s]\n", GBQ__SOURCE_URI_2))
 table_2_exists <- bq_table_exists(GBQ__SOURCE_URI_2)
 if(table_2_exists) {
   cat(sprintf("delete temporary table: [%s]\n", GBQ__SOURCE_URI_2))
   bq_table_delete(GBQ__SOURCE_URI_2)
 }
+
 cat(sprintf("create temporary table and upload data: [%s]\n", GBQ__SOURCE_URI_2))
-bq_table_upload(GBQ__SOURCE_URI_2, df)
+print(bq_table_upload(GBQ__SOURCE_URI_2, df))
 
 cat(sprintf("check if main table exists: [%s]\n", GBQ__SOURCE_URI_1))
 table_1_exists <- bq_table_exists(GBQ__SOURCE_URI_1)
